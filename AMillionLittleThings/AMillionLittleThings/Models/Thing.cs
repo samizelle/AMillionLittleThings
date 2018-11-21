@@ -11,7 +11,6 @@ namespace AMillionLittleThings.Models
         public int NameID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        //public DateTime DateAdded { get; set; }
     }
 
     public class ThingDbContext : DbContext
