@@ -1,0 +1,40 @@
+﻿@model AMillionLittleThings.Models.Thing
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Add a new thing...</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>One Thing</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { HtmlAttributes = new { @class = "form-control" } });
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" });
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { HtmlAttributes = new { @class = "form-control" } });
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" });
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateAdded, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateAdded, new { HtmlAttributes = new { @class = "form-control" } });
+                @Html.ValidationMessageFor(model => model.DateAdded, "", new { @class = "text-danger" });
+            </div>
+        </div>
+    </div>
+}
