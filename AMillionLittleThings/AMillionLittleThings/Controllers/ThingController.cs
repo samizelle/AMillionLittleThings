@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -28,7 +29,7 @@ namespace AMillionLittleThings.Controllers
         // POST: Thing/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "NameID", "Name", "Description", "DateAdded")] Thing thing)
+        public ActionResult Create([Bind(Include = "NameID", "Name", "Description")] Thing thing)
         {
             if (ModelState.IsValid)
             {
@@ -73,6 +74,50 @@ namespace AMillionLittleThings.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //GET: Thing/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Thing thing = db.Things.Find(id);
+            if (thing == null)
+            {
+                return HttpNotFound();
+            }
+            return View(thing);
+        }
+
+        //POST: Thing/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "NameID", "Name", "Description")] Thing thing)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(thing).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(thing);
+        }
+
+        //GET: Thing/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Thing thing = db.Things.Find(id);
+            if (thing == null)
+            {
+                return HttpNotFound();
+            }
+            return View(thing);
         }
     }
 }
